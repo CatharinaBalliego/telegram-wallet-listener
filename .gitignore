@@ -1,0 +1,26 @@
+node_modules/
+
+# dotenv environment variable files
+.env
+.env.*
+!.env.example
+
+# yarn v3
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Logs
+logs
+*.log
+
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
