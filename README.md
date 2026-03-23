@@ -1,66 +1,29 @@
-## Foundry
+# Telegram Wallet Notifier
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A real-time monitoring tool built to track crypto wallet transactions and send instant notifications via Telegram.
 
-Foundry consists of:
+## 🚀 Overview
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+This project monitors specific wallet addresses on-chain and triggers Telegram alerts whenever a new deposit or transaction is detected. Built with TypeScript and Foundry for blockchain testing.
 
-## Documentation
+## 🛠️ Tech Stack
 
-https://book.getfoundry.sh/
+* **Language:** TypeScript
+* **Blockchain Framework:** [Foundry](https://book.getfoundry.sh/getting-started/installation) (Forge & Cast)
+* **API:** Telegram Bot API
+* **Runtime:** Node.js
 
-## Usage
+## 📦 Getting Started
 
-### Build
+### Prerequisites
 
-```shell
-$ forge build
-```
+* Node.js & npm/yarn installed.
+* Foundry installed.
+* A Telegram Bot Token (from [@BotFather](https://t.me/botfather)).
+* An RPC URL (Infura, Alchemy, or a local Anvil instance).
 
-### Test
 
-```shell
-$ forge test
-```
 
-### Format
 
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## 🧪 Local Testing with Anvil
+You can use the provided cheat codes to test the bot locally using Anvil.
