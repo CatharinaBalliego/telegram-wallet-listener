@@ -48,12 +48,12 @@ export const listenToTokenDeposits = (accountAddress: string): void => {
         return;
     }
 
-    console.log("starting listening")
+    console.log("starting listening");
     const daiContract = new ethers.Contract(USDTContractAddress, abi, provider);
 
     const depositFilter = daiContract.filters["Transfer"]!(null, accountAddress);
 
-    console.log(`Monitoring ${accountAddress} deposits`)
+    console.log(`Monitoring ${accountAddress} deposits`);
 
     daiContract.on(depositFilter, async (...args) => {
         try {
@@ -61,12 +61,38 @@ export const listenToTokenDeposits = (accountAddress: string): void => {
             const [from, , value] = eventArgs;
 
             const amount = ethers.formatUnits(value, 6);
-            const msg = `🚀 *New Deposit!*\n\n*Amount:* ${amount} USDT\n*From:* \`${from}\``;
+            const msg = `💰 *New Deposit!*\n\n*Amount:* ${amount} USDT\n*From:* \`${from}\``;
             
             await sendAlert(msg).catch(err => console.error("Telegram failed:", err));
             
             console.log(`💰 Deposit Detected!`);
             console.log(`From: ${from} | Amount: ${amount} USDT`);
+        } catch(err) {
+            console.error("Error processing event:", err);
+        }
+    });
+};
+
+
+export const listenToTokenWithdrawals = (accountAddress: string): void => {
+    const daiContract = new ethers.Contract(USDTContractAddress, abi, provider);
+
+    const withdrawFilter = daiContract.filters["Transfer"]!(accountAddress, null);
+
+    daiContract.on(withdrawFilter, async (...args) => {
+        try {
+            // const { args: eventArgs } = args[args.length - 1];
+            const eventPayload = args[args.length - 1];
+            const [, to, value] = eventPayload.args;
+            const txHash = eventPayload.log.transactionHash;
+
+            const amount = ethers.formatUnits(value, 6);
+            const msg = `💸 *New Withdraw!*\n\n*Amount:* ${amount} USDT\n*To:* \`${to}\`\n*Tx:* [See on Explorer](https://etherscan.io/tx/${txHash})`;
+            
+            await sendAlert(msg).catch(err => console.error("Telegram failed:", err));
+            
+            console.log(`💸 Withdraw Detected!`);
+            console.log(`To: ${to} | Amount: ${amount} USDT`);
         } catch(err) {
             console.error("Error processing event:", err);
         }

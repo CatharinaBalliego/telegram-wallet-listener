@@ -1,7 +1,7 @@
 import { Telegraf } from 'telegraf';
 import { message } from 'telegraf/filters';
 import 'dotenv/config';
-import { checkBalance, listenToTokenDeposits } from './wallet_listenner.js';
+import { checkBalance, listenToTokenDeposits, listenToTokenWithdrawals } from './wallet_listenner.js';
 
 
 const bot = new Telegraf(process.env.BOT_TOKEN as string);
@@ -30,6 +30,7 @@ bot.on(message('text'), async (ctx) => {
         checkBalance(walletAddress);
 
         listenToTokenDeposits(walletAddress);
+        listenToTokenWithdrawals(walletAddress);
 
     } else {
         await ctx.reply('Use /request to send new wallet address');
